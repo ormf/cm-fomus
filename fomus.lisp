@@ -10,18 +10,30 @@
 
 (in-package :cm)
 
-(progn (defclass fomus-file (event-file)
-         ((parts :initarg :parts :initform '() :accessor
-           fomus-file-parts)
-          (global :initarg :global :initform '() :accessor
-           fomus-file-global)
-          (view :initarg :view :initform t :accessor fomus-file-view)
-          (play :initarg :play :initform nil :accessor
+
+#|
+(defstub obj-partid (x) :method)
+(defstub fomus)
+(defstub make-part)
+(defstub make-note)
+(defstub get-instr-syms)
+(defstub fomus-file)
+(defstub (special *parts*))
+|#
+
+(progn
+  (defclass fomus-file (event-file)
+    ((parts :initarg :parts :initform '() :accessor
+            fomus-file-parts)
+     (global :initarg :global :initform '() :accessor
+             fomus-file-global)
+     (view :initarg :view :initform t :accessor fomus-file-view)
+     (play :initarg :play :initform nil :accessor
            fomus-file-play)
-          (tempo :initarg :tempo :initform 60 :accessor
-           fomus-file-tempo))
-         #+metaclasses
-         (:metaclass io-class))
+     (tempo :initarg :tempo :initform 60 :accessor
+            fomus-file-tempo))
+    #+metaclasses
+    (:metaclass io-class))
        (defparameter <fomus-file> (find-class 'fomus-file))
        (finalize-class <fomus-file>)
        (setf (io-class-file-types <fomus-file>)

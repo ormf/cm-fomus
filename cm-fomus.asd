@@ -12,7 +12,6 @@
   :depends-on (#:fomus
                #:cm)
   :serial t
-  :components (
-               ;;; (:file "package")
-               (:file "fomus-import")))
-
+  :components ((:file "classes")
+               (:file "fomus-import")
+               (:file "fomus")))
