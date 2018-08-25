@@ -23,22 +23,18 @@
 
 (progn
   (defclass fomus-file (event-file)
-    ((parts :initarg :parts :initform '() :accessor
-            fomus-file-parts)
-     (global :initarg :global :initform '() :accessor
-             fomus-file-global)
+    ((parts :initarg :parts :initform '() :accessor fomus-file-parts)
+     (global :initarg :global :initform '() :accessor fomus-file-global)
      (view :initarg :view :initform t :accessor fomus-file-view)
-     (play :initarg :play :initform nil :accessor
-           fomus-file-play)
-     (tempo :initarg :tempo :initform 60 :accessor
-            fomus-file-tempo))
+     (play :initarg :play :initform nil :accessor fomus-file-play)
+     (tempo :initarg :tempo :initform 60 :accessor fomus-file-tempo))
     #+metaclasses
     (:metaclass io-class))
-       (defparameter <fomus-file> (find-class 'fomus-file))
-       (finalize-class <fomus-file>)
-       (setf (io-class-file-types <fomus-file>)
-             '("*.fms" "*.xml" "*.ly"))
-       (values))
+  (defparameter <fomus-file> (find-class 'fomus-file))
+  (finalize-class <fomus-file>)
+  (setf (io-class-file-types <fomus-file>)
+        '("*.fms" "*.xml" "*.ly"))
+  (values))
 
 (defmethod object-time ((obj event-base)) (event-off obj))
 
@@ -69,40 +65,23 @@
           (let* ((file (file-output-filename io))
                  (type (filename-type file)))
             (cond ((equal type "ly")
-                   (setf bend
-                         (list ':lilypond
-                               :filename
-                               file
-                               :view
-                               (fomus-file-view io))))
+                   (setf bend (list ':lilypond
+                                    :filename file
+                                    :view (fomus-file-view io))))
                   ((equal type "xml")
-                   (setf bend
-                         (list ':musicxml
-                               :filename
-                               file
-                               :view
-                               (fomus-file-view io))))
+                   (setf bend (list ':musicxml
+                                    :filename file
+                                    :view (fomus-file-view io))))
                   (t (setf bend (list ':fomus :filename file))))
             (when (fomus-file-play io)
               (setf bend
-                    (list bend
-                          (list ':midi
-                                :play
-                                t
-                                :filename
-                                (make-pathname
-                                 :type
-                                 "mid"
-                                 :defaults
-                                 file)
-                                :tempo
-                                (fomus-file-tempo io)))))
+                    (list bend (list ':midi :play t
+                                     :filename (make-pathname :type "mid" :defaults file)
+                                     :tempo (fomus-file-tempo io)))))
             (setf args (list* ':output bend args))))
         (apply #'fomus
-               :parts
-               (fomus-file-parts io)
-               :global
-               (fomus-file-global io)
+               :parts (fomus-file-parts io)
+               :global (fomus-file-global io)
                args)))))
 
 (defun fomus-file-part (stream id)
@@ -150,18 +129,12 @@
     opts
     (unless chan (setf chan (if (integerp myid) myid 0)))
     (write-event
-     (make-instance
-       <midi>
-       :time
-       (event-off obj)
-       :amplitude
-       ampl
-       :keynum
-       (event-note obj)
-       :duration
-       (event-dur obj)
-       :channel
-       chan)
+     (make-instance <midi>
+                    :time (event-off obj)
+                    :amplitude ampl
+                    :keynum (event-note obj)
+                    :duration (event-dur obj)
+                    :channel chan)
      fil scoretime)))
 
 (defmethod import-events ((file fomus-file) &key (seq t))
