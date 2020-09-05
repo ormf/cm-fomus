@@ -9,8 +9,8 @@
   implementation unnecessary."
   :author "Orm Finnendahl <orm.finnendahl@selma.hfmdk-frankfurt.de>"
   :license "licensed under the GPL v2 or later"
-  :depends-on (#:fomus
-               #:cm)
+  :depends-on (#:cm
+               #:fomus)
   :serial t
   :components ((:file "classes")
                (:file "fomus-import")
