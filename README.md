@@ -1,7 +1,7 @@
 ### This Repository is deprecated!
 
   The cm-fomus repository has been completely integrated into
-  (Clamps)[https://codeberg.org/ormf/clamps] and is developed
+  [Clamps](https://codeberg.org/ormf/clamps) and is developed
   there. The archive here is kept for historical reasons only. This
   archive will not receive further updates or patches. Issues and pull
   requests will not be looked at here either, please submit your
