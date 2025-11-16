@@ -1,3 +1,17 @@
+### This Repository is deprecated!
+
+  The cm-fomus repository has been completely integrated into
+  (Clamps)[https://codeberg.org/ormf/clamps] and is developed
+  there. The archive here is kept for historical reasons only. This
+  archive will not receive further updates or patches. Issues and pull
+  requests will not be looked at here either, please submit your
+  patches and issue tickets on the Clamps repository on Codeberg, or
+  send them directly via good old email patches to the author.
+
+---
+
+## cm-fomus
+
 cm-fomus adds fomus functionality to cm. It is a seperate package
 depending on fomus and cm which enhances modularity, as you can use
 either fomus as standalone packages.
